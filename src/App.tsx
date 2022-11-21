@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 
-function App() {
+const App = () => {
+  const Private = ({ Item }: any) => {
+    const signed = JSON.parse(localStorage.getItem("user_token") || "");
+    return signed ? <Item /> : <Login />;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Fragment>
+        <Routes>
+          <Route path="/home" element={<Private Item={Home} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </Fragment>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
