@@ -20,6 +20,7 @@ export const LoginCard = styled.div`
 export const LoginButton = styled.button`
   text-align: center;
   margin-top: 40px;
+  cursor: pointer;
 
   display: flex;
   width: 100px;
@@ -61,4 +62,17 @@ export const LoginTitle = styled.div`
   color: white;
   text-shadow: #8294ba 2px 2px 0px;
   margin-bottom: 10px;
+  user-select: none;
+`;
+
+export const RegisterButton = styled.a`
+  text-align: center;
+  margin-top: 10px;
+  font-size: 10px;
+  text-decoration: none;
+  color: #7f90b5;
+
+  :hover {
+    color: #91a9db;
+  }
 `;

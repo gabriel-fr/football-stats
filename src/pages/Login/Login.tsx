@@ -1,4 +1,11 @@
-import { LoginButton, LoginCard, LoginContainer, StyledInput, LoginTitle } from "./styles";
+import {
+  LoginButton,
+  LoginCard,
+  LoginContainer,
+  StyledInput,
+  LoginTitle,
+  RegisterButton,
+} from "./styles";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import client from "../../services/client";
@@ -54,6 +61,9 @@ const Login = () => {
             ) : (
               <LoginButton onClick={() => login()}>Login</LoginButton>
             )}
+            <RegisterButton href="https://dashboard.api-football.com/login">
+              Cadastre-se
+            </RegisterButton>
           </LoginCard>
         </div>
       </LoginContainer>

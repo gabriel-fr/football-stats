@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import client from "../../services/client";
 import { HomeContainer, HomeStyle, StyledSelect } from "./styles";
 import { ToastContainer, toast } from "react-toastify";
-import { getHeadersRequest } from "../../utils";
 import { Country, LeagueData } from "../../interfaces/Home/home";
+import HomeService from "../../services/home";
 
 function Home() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -12,21 +12,21 @@ function Home() {
   const [selectedSeason, setSelectedSeason] = useState(0);
   const [leagues, setLeagues] = useState([]);
   const [selectedLeague, setSelectedLeague] = useState("");
-  const headersRequest = getHeadersRequest();
+
+  const homeServices = new HomeService();
 
   const fetchCountries = async () => {
     try {
-      const { data, status } = await client.get("/countries", headersRequest);
-      setCountries(data.response);
+      const result = await homeServices.fetchCountries();
+      setCountries(result);
     } catch (e) {
-      console.error(e);
       toast.error("Ops. Ocorreu um erro ao buscar os países. Tente novamente");
     }
   };
 
   const fetchSeason = async () => {
     try {
-      const { data, status } = await client.get("/leagues/seasons", headersRequest);
+      const { data, status } = await client.get("/leagues/seasons");
       setSeasons(data.response);
     } catch (e) {
       console.error(e);
@@ -36,10 +36,7 @@ function Home() {
 
   const fetchLeagues = async () => {
     try {
-      const { data, status } = await client.get(
-        `/leagues?country=${selectedCountry}`,
-        headersRequest
-      );
+      const { data, status } = await client.get(`/leagues?country=${selectedCountry}`);
       setLeagues(data.response);
     } catch (e) {
       console.error(e);
@@ -49,7 +46,7 @@ function Home() {
 
   const fetchTeams = async () => {
     try {
-      const { data, status } = await client.get(`/teams?league=${selectedLeague}`, headersRequest);
+      const { data, status } = await client.get(`/teams?league=${selectedLeague}`);
       setLeagues(data.response);
     } catch (e) {
       console.error(e);
