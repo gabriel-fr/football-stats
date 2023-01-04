@@ -23,13 +23,7 @@ const Login = () => {
     }
 
     setIsLoading(true);
-
-    const { data, status } = await client.get("/status", {
-      headers: {
-        "x-rapidapi-key": token,
-        "x-rapidapi-host": "v3.football.api-sports.io",
-      },
-    });
+    const { data, status } = await client.get("/status");
 
     if (status !== 200) {
       setIsLoading(false);
